@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<title>Plantworks — Practical AI adoption for manufacturing leaders</title>
+<link rel="icon" type="image/svg+xml" href="/plantworks-favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,300;9..144,0,400;9..144,0,500;9..144,1,300;9..144,1,400&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0f11;
+    --bg-alt: #131519;
+    --bg-card: #181a1e;
+    --ink: #f0ece2;
+    --ink-soft: #b8b3a6;
+    --ink-muted: #6e6a60;
+    --rule: #26282d;
+    --rule-soft: #1d1f23;
+    --accent: #8aa4c0;
+    --accent-warm: #d4a574;
+    --paper: #f5f0e3;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter Tight', -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ─── grain overlay (subtler on dark) ───────────────────── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    z-index: 100;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ambient glow for hero */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -200px;
+    right: -200px;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(138, 164, 192, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 0 24px; }
+  }
+
+  /* ─── nav ───────────────────────────────────────────────── */
+  nav {
+    padding: 32px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .logo-lockup {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: opacity 0.2s;
+  }
+
+  .logo-lockup:hover { opacity: 0.85; }
+
+  .logo-mark {
+    color: var(--accent-warm);
+    flex-shrink: 0;
+  }
+
+  .logo {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .logo span {
+    font-weight: 300;
+    color: var(--ink-soft);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .nav-links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
+  .nav-cta {
+    padding: 10px 20px;
+    border: 1px solid var(--ink-soft);
+    color: var(--ink) !important;
+    font-size: 13px !important;
+    transition: all 0.2s;
+  }
+
+  .nav-cta:hover {
+    background: var(--ink);
+    color: var(--bg) !important;
+    border-color: var(--ink);
+  }
+
+  @media (max-width: 720px) {
+    .nav-links a:not(.nav-cta) { display: none; }
+  }
+
+  /* ─── hero ──────────────────────────────────────────────── */
+  .hero {
+    padding: 120px 0 100px;
+    position: relative;
+    background: var(--bg);
+    color: var(--ink);
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 36px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(40px, 6.5vw, 84px);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    margin-bottom: 40px;
+    max-width: 980px;
+    color: var(--ink);
+  }
+
+  h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent-warm);
+  }
+
+  .hero-sub {
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 620px;
+    margin-bottom: 56px;
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 60px 0 60px; }
+    .hero-sub { font-size: 17px; }
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--paper);
+    color: var(--bg);
+    padding: 18px 32px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: all 0.25s;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-warm);
+    transform: translateY(-1px);
+  }
+
+  .btn-primary svg { transition: transform 0.25s; }
+  .btn-primary:hover svg { transform: translateX(4px); }
+
+  .btn-text {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 15px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 2px;
+    transition: all 0.2s;
+  }
+
+  .btn-text:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink-soft);
+  }
+
+  /* hero meta strip */
+  .hero-meta {
+    margin-top: 100px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+
+  .meta-item .meta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 8px;
+  }
+
+  .meta-item .meta-value {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    color: var(--ink);
+    font-weight: 400;
+  }
+
+  @media (max-width: 720px) {
+    .hero-meta {
+      margin-top: 60px;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+  }
+
+  /* ─── problem section ───────────────────────────────────── */
+  .problem {
+    padding: 120px 0;
+    background: var(--bg-alt);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .section-header {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    margin-bottom: 80px;
+    align-items: end;
+  }
+
+  @media (max-width: 900px) {
+    .section-header {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-bottom: 56px;
+    }
+  }
+
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+  }
+
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(30px, 4vw, 52px);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  h2 em {
+    font-style: italic;
+    color: var(--accent-warm);
+    font-weight: 300;
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .problem-grid { grid-template-columns: 1fr; gap: 48px; }
+  }
+
+  .problem-text p {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+  }
+
+  .problem-text p:last-child { margin-bottom: 0; }
+
+  .problem-text strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .stuck-list {
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+
+  .stuck-list li {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 20px;
+    align-items: baseline;
+  }
+
+  .stuck-list .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+  }
+
+  .stuck-list .text {
+    font-family: 'Fraunces', serif;
+    font-size: 21px;
+    line-height: 1.3;
+    color: var(--ink);
+    font-weight: 400;
+  }
+
+  /* ─── differentiation ───────────────────────────────────── */
+  .diff {
+    padding: 140px 0;
+    position: relative;
+    background: var(--bg);
+    color: var(--ink);
+  }
+
+  .diff-content {
+    display: grid;
+    grid-template-columns: 5fr 4fr;
+    gap: 100px;
+    align-items: center;
+  }
+
+  @media (max-width: 900px) {
+    .diff-content { grid-template-columns: 1fr; gap: 60px; }
+    .diff { padding: 80px 0; }
+  }
+
+  .diff-text .section-num { margin-bottom: 24px; display: block; }
+
+  .diff-text h2 {
+    margin-bottom: 32px;
+  }
+
+  .diff-text p {
+    font-size: 18px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+
+  .diff-text strong { color: var(--ink); font-weight: 500; }
+
+  .credentials {
+    background: var(--bg-card);
+    color: var(--ink);
+    padding: 56px 48px;
+    position: relative;
+    border: 1px solid var(--rule);
+  }
+
+  .credentials::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 60px;
+    height: 60px;
+    border-top: 2px solid var(--accent-warm);
+    border-left: 2px solid var(--accent-warm);
+  }
+
+  .credentials::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    width: 60px;
+    height: 60px;
+    border-bottom: 2px solid var(--accent-warm);
+    border-right: 2px solid var(--accent-warm);
+  }
+
+  .cred-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-warm);
+    margin-bottom: 24px;
+  }
+
+  .cred-name {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    line-height: 1.2;
+    margin-bottom: 18px;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .cred-bio {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 32px;
+  }
+
+  .cred-list {
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+
+  .cred-list li {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 14px;
+    color: var(--ink-soft);
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .cred-list li span:first-child {
+    color: var(--ink);
+  }
+
+  .cred-list li span:last-child {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+  }
+
+  /* ─── pillars ───────────────────────────────────────────── */
+  .pillars {
+    padding: 140px 0;
+    background: var(--bg-alt);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  @media (max-width: 900px) { .pillars { padding: 80px 0; } }
+
+  .pillar-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .pillar-grid.five {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "lead lead"
+      "p2   p3"
+      "p4   p5";
+  }
+
+  .pillar-grid.five .pillar.lead { grid-area: lead; }
+  .pillar-grid.five .pillar:nth-child(2) { grid-area: p2; }
+  .pillar-grid.five .pillar:nth-child(3) { grid-area: p3; }
+  .pillar-grid.five .pillar:nth-child(4) { grid-area: p4; }
+  .pillar-grid.five .pillar:nth-child(5) { grid-area: p5; }
+
+  @media (max-width: 720px) {
+    .pillar-grid,
+    .pillar-grid.five {
+      grid-template-columns: 1fr;
+      grid-template-areas: none;
+    }
+  }
+
+  .pillar {
+    background: var(--bg-alt);
+    padding: 56px 48px;
+    transition: background 0.3s;
+    position: relative;
+  }
+
+  .pillar:hover { background: var(--bg-card); }
+
+  .pillar.lead {
+    background: var(--bg-card);
+    padding: 64px 56px;
+    border-left: 2px solid var(--accent-warm);
+  }
+
+  .pillar.lead:hover { background: var(--bg-card); }
+
+  .pillar.lead .pillar-num {
+    color: var(--accent-warm);
+  }
+
+  .pillar.lead h3 {
+    font-size: 32px;
+    max-width: 90%;
+  }
+
+  .pillar.lead p {
+    font-size: 17px;
+    max-width: 720px;
+  }
+
+  .pillar.lead .pillar-eyebrow {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent-warm);
+    font-size: 15px;
+    margin-bottom: 20px;
+    max-width: 720px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 600px) {
+    .pillar { padding: 40px 28px; }
+    .pillar.lead { padding: 48px 28px; }
+    .pillar.lead h3 { font-size: 26px; }
+  }
+
+  .pillar-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    color: var(--accent-warm);
+    margin-bottom: 28px;
+  }
+
+  .pillar h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .pillar p {
+    color: var(--ink-soft);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* ─── framework ─────────────────────────────────────────── */
+  .framework {
+    padding: 140px 0;
+    text-align: center;
+    position: relative;
+    background: var(--bg);
+    color: var(--ink);
+  }
+
+  @media (max-width: 900px) { .framework { padding: 80px 0; } }
+
+  .framework-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 32px;
+  }
+
+  .framework h2 {
+    max-width: 900px;
+    margin: 0 auto 40px;
+  }
+
+  .framework-desc {
+    font-size: 19px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    max-width: 680px;
+    margin: 0 auto 80px;
+  }
+
+  .framework-axes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    max-width: 980px;
+    margin: 0 auto;
+    padding-top: 60px;
+    border-top: 1px solid var(--rule);
+  }
+
+  @media (max-width: 720px) {
+    .framework-axes { grid-template-columns: 1fr 1fr; gap: 28px; }
+  }
+
+  .axis {
+    text-align: left;
+  }
+
+  .axis-num {
+    font-family: 'Fraunces', serif;
+    font-size: 40px;
+    font-weight: 300;
+    color: var(--accent-warm);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .axis h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+
+  .axis p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* ─── published work ────────────────────────────────────── */
+  .published {
+    padding: 140px 0;
+    background: var(--bg);
+    color: var(--ink);
+  }
+
+  @media (max-width: 900px) { .published { padding: 80px 0; } }
+
+  .pub-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--rule);
+  }
+
+  .pub-item {
+    display: block;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--rule);
+    text-decoration: none;
+    color: inherit;
+    transition: padding 0.25s ease;
+    position: relative;
+  }
+
+  a.pub-item:hover {
+    padding-left: 12px;
+  }
+
+  a.pub-item:hover .pub-link {
+    color: var(--accent-warm);
+    gap: 14px;
+  }
+
+  .pub-meta {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .pub-date {
+    color: var(--accent-warm);
+    font-weight: 500;
+  }
+
+  .pub-venue { color: var(--ink-muted); }
+
+  .pub-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 14px;
+    color: var(--ink);
+    max-width: 760px;
+  }
+
+  .pub-desc {
+    color: var(--ink-soft);
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+    max-width: 760px;
+  }
+
+  .pub-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 500;
+    transition: gap 0.2s, color 0.2s;
+  }
+
+  .pub-link.static { color: var(--ink-muted); }
+
+  /* ─── engagement tiers ──────────────────────────────────── */
+  .engage {
+    padding: 140px 0;
+    background: var(--bg-alt);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  @media (max-width: 900px) { .engage { padding: 80px 0; } }
+
+  .tier-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 60px;
+  }
+
+  @media (max-width: 900px) {
+    .tier-grid { grid-template-columns: 1fr; gap: 24px; }
+  }
+
+  .tier {
+    background: var(--bg-card);
+    padding: 48px 36px;
+    border: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s;
+    position: relative;
+  }
+
+  .tier:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .tier.featured {
+    background: var(--paper);
+    color: var(--bg);
+    border-color: var(--paper);
+  }
+
+  .tier.featured:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-warm);
+  }
+
+  .tier-tag {
+    position: absolute;
+    top: -12px;
+    right: 24px;
+    background: var(--accent-warm);
+    color: var(--bg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    font-weight: 500;
+  }
+
+  .tier-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+  }
+
+  .tier.featured .tier-name { color: #6b5938; }
+
+  .tier h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .tier.featured h3 { color: var(--bg); }
+
+  .tier-price {
+    font-family: 'Fraunces', serif;
+    font-size: 36px;
+    font-weight: 400;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .tier.featured .tier-price { color: var(--bg); }
+
+  .tier-price-note {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin-bottom: 32px;
+  }
+
+  .tier.featured .tier-price-note { color: #5a5040; }
+
+  .tier-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+  }
+
+  .tier.featured .tier-desc { color: #2d2a22; }
+
+  .tier-includes {
+    list-style: none;
+    border-top: 1px solid var(--rule);
+    margin-bottom: 32px;
+    flex-grow: 1;
+  }
+
+  .tier.featured .tier-includes { border-color: rgba(0,0,0,0.12); }
+
+  .tier-includes li {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 14px;
+    line-height: 1.5;
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    color: var(--ink-soft);
+  }
+
+  .tier.featured .tier-includes li {
+    border-color: rgba(0,0,0,0.12);
+    color: var(--bg);
+  }
+
+  .tier-includes li::before {
+    content: '+';
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent);
+    font-size: 12px;
+  }
+
+  .tier.featured .tier-includes li::before {
+    color: var(--accent-warm);
+  }
+
+  .tier-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--ink);
+    align-self: flex-start;
+    transition: gap 0.2s;
+  }
+
+  .tier.featured .tier-cta {
+    color: var(--bg);
+    border-color: var(--bg);
+  }
+
+  .tier-cta:hover { gap: 14px; }
+
+  /* ─── audience ──────────────────────────────────────────── */
+  .audience {
+    padding: 140px 0;
+    background: var(--bg);
+    color: var(--ink);
+  }
+
+  @media (max-width: 900px) { .audience { padding: 80px 0; } }
+
+  .audience-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .audience-grid { grid-template-columns: 1fr; gap: 48px; }
+  }
+
+  .aud-block h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--rule);
+    font-weight: 500;
+  }
+
+  .aud-list {
+    list-style: none;
+  }
+
+  .aud-list li {
+    padding: 14px 0;
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    color: var(--ink);
+    border-bottom: 1px solid var(--rule);
+    font-weight: 400;
+  }
+
+  .aud-list li:last-child { border-bottom: none; }
+
+  /* ─── final cta ─────────────────────────────────────────── */
+  .final-cta {
+    padding: 140px 0;
+    background: var(--paper);
+    color: var(--bg);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  @media (max-width: 900px) { .final-cta { padding: 80px 0; } }
+
+  .final-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 60px;
+    background: var(--accent-warm);
+  }
+
+  .final-cta .eyebrow {
+    color: #6b5938;
+    justify-content: center;
+  }
+
+  .final-cta .eyebrow::before {
+    background: #6b5938;
+  }
+
+  .final-cta h2 {
+    color: var(--bg);
+    margin: 0 auto 32px;
+    max-width: 800px;
+  }
+
+  .final-cta h2 em {
+    color: #8b6f3a;
+  }
+
+  .final-cta p {
+    font-size: 19px;
+    color: #2d2a22;
+    line-height: 1.6;
+    max-width: 580px;
+    margin: 0 auto 56px;
+  }
+
+  .final-cta .btn-primary {
+    background: var(--bg);
+    color: var(--paper);
+  }
+
+  .final-cta .btn-primary:hover {
+    background: #8b6f3a;
+    color: var(--paper);
+  }
+
+  /* ─── inquiry form ──────────────────────────────────────── */
+  .inquiry-form {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  .hidden-field {
+    position: absolute;
+    left: -9999px;
+    visibility: hidden;
+  }
+
+  .form-row {
+    display: grid;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+
+  .form-row.two-col {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 600px) {
+    .form-row.two-col { grid-template-columns: 1fr; }
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .field label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #5a5040;
+    font-weight: 500;
+  }
+
+  .final-cta .field input,
+  .final-cta .field select,
+  .final-cta .field textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(14, 15, 17, 0.2);
+    padding: 12px 0;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 17px;
+    color: var(--bg);
+    outline: none;
+    transition: border-color 0.2s;
+    border-radius: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  .final-cta .field textarea {
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.5;
+  }
+
+  .final-cta .field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%230e0f11' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 4px center;
+    padding-right: 24px;
+    cursor: pointer;
+  }
+
+  .final-cta .field input::placeholder,
+  .final-cta .field textarea::placeholder {
+    color: rgba(14, 15, 17, 0.35);
+  }
+
+  .final-cta .field input:focus,
+  .final-cta .field select:focus,
+  .final-cta .field textarea:focus {
+    border-bottom-color: #8b6f3a;
+  }
+
+  .form-submit {
+    margin-top: 24px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Inter Tight', sans-serif;
+  }
+
+  /* ─── thank you state ───────────────────────────────────── */
+  .thank-you {
+    max-width: 540px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 40px 0;
+    color: var(--bg);
+  }
+
+  .thank-you svg {
+    color: #8b6f3a;
+    margin-bottom: 24px;
+  }
+
+  .thank-you h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 28px;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  .thank-you p {
+    font-size: 17px;
+    color: #2d2a22;
+    line-height: 1.6;
+  }
+
+  .thank-you a {
+    color: #8b6f3a;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  .thank-you a:hover {
+    color: var(--bg);
+  }
+
+  /* ─── footer ────────────────────────────────────────────── */
+  footer {
+    padding: 60px 0 40px;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+    color: var(--ink);
+  }
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .footer-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+
+  @media (max-width: 600px) {
+    .footer-meta {
+      align-items: flex-start;
+    }
+  }
+
+  .footer-content p {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin: 0;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--ink-soft); }
+
+  .footer-content .logo { font-size: 18px; }
+
+  /* ─── cookie banner ─────────────────────────────────────── */
+  .cookie-banner {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    max-width: 360px;
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    padding: 24px;
+    z-index: 200;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .cookie-banner.visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  @media (max-width: 600px) {
+    .cookie-banner {
+      bottom: 16px;
+      right: 16px;
+      left: 16px;
+      max-width: none;
+    }
+  }
+
+  .cookie-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-warm);
+    margin-bottom: 12px;
+  }
+
+  .cookie-banner h4 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 17px;
+    color: var(--ink);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .cookie-banner p {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+
+  .cookie-banner p a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .cookie-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .cookie-btn {
+    flex: 1;
+    padding: 10px 16px;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--rule);
+    background: transparent;
+    color: var(--ink-soft);
+    transition: all 0.2s;
+  }
+
+  .cookie-btn:hover {
+    color: var(--ink);
+    border-color: var(--ink-soft);
+  }
+
+  .cookie-btn.primary {
+    background: var(--paper);
+    color: var(--bg);
+    border-color: var(--paper);
+  }
+
+  .cookie-btn.primary:hover {
+    background: var(--accent-warm);
+    border-color: var(--accent-warm);
+    color: var(--bg);
+  }
+
+  /* ─── reveal animation ──────────────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <nav>
+    <a href="/" class="logo-lockup">
+      <svg class="logo-mark" width="32" height="32" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+        <rect x="2" y="2" width="40" height="40" stroke="currentColor" stroke-width="1.2" fill="none"/>
+        <text x="22" y="29.5" text-anchor="middle" font-family="Fraunces, serif" font-size="19" font-weight="500" fill="currentColor" letter-spacing="-0.5">PW</text>
+      </svg>
+      <span class="logo">Plant<span>works</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#approach">Approach</a>
+      <a href="#engage">Engage</a>
+      <a href="#cta" class="nav-cta">Get in touch</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="eyebrow">An advisory practice for manufacturing leaders</div>
+    <h1>Practical AI adoption, grounded in how <em>manufacturing actually works.</em></h1>
+    <p class="hero-sub">Most manufacturers are stuck between ignoring AI and chasing it through fragmented experiments that never produce operational value. We help leadership teams identify where AI creates real value, assess organizational readiness, and build a credible roadmap.</p>
+    <div class="hero-actions">
+      <a href="#cta" class="btn-primary">
+        Get in touch
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M1 6h14m0 0L10 1m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+      </a>
+      <a href="#approach" class="btn-text">See the approach</a>
+    </div>
+
+    <div class="hero-meta">
+      <div class="meta-item">
+        <div class="meta-label">Format</div>
+        <div class="meta-value">Workshops &amp; advisory</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Audience</div>
+        <div class="meta-value">Operations leaders</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Duration</div>
+        <div class="meta-value">½ day → 90 days</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Outcome</div>
+        <div class="meta-value">Roadmap &amp; pilots</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">01 / The problem</div>
+      <h2>Generic AI training won't bridge the gap between <em>experimentation and operational value.</em></h2>
+    </div>
+
+    <div class="problem-grid">
+      <div class="problem-text">
+        <p>Manufacturing leaders are under pressure to adopt AI — but the available options aren't working. Vendor pilots stay disconnected from real plant operations. Prompt-engineering workshops produce enthusiasm without execution. Internal experiments fragment across departments without governance or strategy.</p>
+        <p><strong>Meanwhile, the opportunities that matter — engineering throughput, knowledge retention, maintenance support, proposal velocity — go unaddressed.</strong></p>
+        <p>The organizations getting AI right aren't deploying tools. They're redesigning how knowledge and decisions move through their operations. That requires a different kind of engagement.</p>
+      </div>
+      <ul class="stuck-list">
+        <li><div class="num">01</div><div class="text">Fragmented experimentation across departments</div></li>
+        <li><div class="num">02</div><div class="text">Shadow AI usage without governance</div></li>
+        <li><div class="num">03</div><div class="text">Operational knowledge walking out the door</div></li>
+        <li><div class="num">04</div><div class="text">Engineering teams buried in information overload</div></li>
+        <li><div class="num">05</div><div class="text">No clear ROI thesis or executive alignment</div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- DIFFERENTIATION -->
+<section class="diff" id="approach">
+  <div class="container">
+    <div class="diff-content">
+      <div class="diff-text">
+        <span class="section-num">02 / Why this is different</span>
+        <h2>This isn't an AI workshop adapted for manufacturing. It's a <em>manufacturing transformation framework</em> that happens to be about AI.</h2>
+        <p>Most AI advisors come from software, consulting, or research. They speak the language of models and prompts, not control systems, speed curves, and shift handovers.</p>
+        <p>Plantworks is built by the practitioner who first published <em>Zero Loss Analysis</em> in the Operational Excellence Society in 2009 — a methodology refined across forty years of plant analysis work in industrial automation, CPG, food and beverage, and process manufacturing. The advisory practice is the AI-era delivery vehicle for a body of work that has been compounding for decades.</p>
+        <p><strong>The result is an engagement that speaks both languages — and prioritizes operational credibility over AI theater.</strong></p>
+      </div>
+      <div class="credentials">
+        <div class="cred-label">Practice lead</div>
+        <div class="cred-name">Trevor Cusworth</div>
+        <p class="cred-bio">Forty years in industrial automation, process control, and operational transformation. Author of Zero Loss Analysis (OpEx Society, 2009) and the Open Process Automation book.</p>
+        <ul class="cred-list">
+          <li><span>Schneider Electric</span><span>Automation</span></li>
+          <li><span>Invensys</span><span>Business performance</span></li>
+          <li><span>Deloitte</span><span>Strategy &amp; operations</span></li>
+          <li><span>CSI Automation</span><span>OPA / O-PAS</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="pillars">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">03 / Focus areas</div>
+      <h2>Five operational domains where AI creates <em>measurable value</em> — beginning with the one that pays for everything else.</h2>
+    </div>
+
+    <div class="pillar-grid five">
+      <div class="pillar lead">
+        <div class="pillar-num">/ 01 · Lead practice</div>
+        <h3>Zero Loss Analysis</h3>
+        <p class="pillar-eyebrow">Originally published in OpEx Society, 2009. Refined across forty years of practice. Extended for the AI era.</p>
+        <p>Find the binding constraint in your line — including how it shifts by SKU. Apply control factor analysis to identify what's actually limiting it, replacing brainstorming with measurement. Convert recovered capacity into incremental revenue or cost savings, depending on whether you're production- or demand-constrained. Rebase the plant accounting system so the gains are visible to finance — because constraints move faster than standard costs do, and the work doesn't stick until both are aligned.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">/ 02</div>
+        <h3>Engineering workflows &amp; knowledge retrieval</h3>
+        <p>Reduce the hours engineers spend searching specs, drawings, standards, and historical project data. Put institutional engineering knowledge at their fingertips.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">/ 03</div>
+        <h3>Maintenance &amp; troubleshooting support</h3>
+        <p>Capture institutional knowledge before it walks out the door. Put diagnostic guidance, historical fixes, and equipment context in front of technicians at the moment they need it.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">/ 04</div>
+        <h3>Proposal &amp; sales engineering automation</h3>
+        <p>Compress proposal cycles, improve technical accuracy, and free senior engineers from repetitive scoping and documentation work that doesn't require their judgment.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">/ 05</div>
+        <h3>Operational knowledge management</h3>
+        <p>Make the organization's collective expertise searchable, current, and governable — so it survives turnover, scales across sites, and informs daily decisions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FRAMEWORK -->
+<section class="framework">
+  <div class="container">
+    <div class="framework-eyebrow">04 / Methodology</div>
+    <h2>The Operational AI Opportunity Framework™</h2>
+    <p class="framework-desc">A structured methodology for evaluating AI initiatives across four dimensions — so your organization invests in the right opportunities, in the right sequence, with the right governance in place.</p>
+
+    <div class="framework-axes">
+      <div class="axis">
+        <div class="axis-num">01</div>
+        <h4>Operational impact</h4>
+        <p>Where does AI move metrics that leadership actually tracks?</p>
+      </div>
+      <div class="axis">
+        <div class="axis-num">02</div>
+        <h4>Implementation complexity</h4>
+        <p>What's realistic given current systems, data, and team capacity?</p>
+      </div>
+      <div class="axis">
+        <div class="axis-num">03</div>
+        <h4>Organizational readiness</h4>
+        <p>Are the workflows, governance, and adoption conditions in place?</p>
+      </div>
+      <div class="axis">
+        <div class="axis-num">04</div>
+        <h4>Governance &amp; risk fit</h4>
+        <p>What controls, boundaries, and oversight are required?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLISHED WORK -->
+<section class="published">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">05 / Published work</div>
+      <h2>The methodology has a <em>paper trail.</em></h2>
+    </div>
+
+    <div class="pub-list">
+      <a href="https://opexsociety.org/body-of-knowledge/from-zero-to-hero/" target="_blank" rel="noopener" class="pub-item">
+        <div class="pub-meta">
+          <span class="pub-date">March 2009</span>
+          <span class="pub-venue">OpEx Society · Body of Knowledge</span>
+        </div>
+        <h3 class="pub-title">From Zero to Hero</h3>
+        <p class="pub-desc">The original publication of Zero Loss Analysis. Establishes the gap between reported efficiency and true potential, the failure modes of cost accounting and benchmarking, and the four-step methodology — illustrated with case examples from CPG, food &amp; beverage, and brewing operations.</p>
+        <span class="pub-link">Read on opexsociety.org →</span>
+      </a>
+
+      <div class="pub-item static">
+        <div class="pub-meta">
+          <span class="pub-date">In progress</span>
+          <span class="pub-venue">Manuscript · 2026</span>
+        </div>
+        <h3 class="pub-title">Open Process Automation: Architecture, Execution, and Transformation</h3>
+        <p class="pub-desc">Book-length treatment of OPA and the O-PAS standards, written for executives and engineering leaders navigating the move away from proprietary DCS architectures. Drafted manuscript with five appendices covering strategy, technology, and execution.</p>
+        <span class="pub-link static">Forthcoming</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENGAGE -->
+<section class="engage" id="engage">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">06 / How to engage</div>
+      <h2>Three ways to work together — designed to <em>build on one another.</em></h2>
+    </div>
+
+    <div class="tier-grid">
+      <div class="tier">
+        <div class="tier-name">Tier 01 — Briefing</div>
+        <h3>The Plantworks Briefing</h3>
+        <div class="tier-price">$2,500</div>
+        <div class="tier-price-note">Half-day executive session</div>
+        <p class="tier-desc">For leadership teams that want to align on direction before committing to a full engagement.</p>
+        <ul class="tier-includes">
+          <li>Pre-call discovery</li>
+          <li>Half-day working session</li>
+          <li>Operational AI Opportunity Map</li>
+          <li>Recommended next steps</li>
+        </ul>
+        <a href="#cta" class="tier-cta">Start here →</a>
+      </div>
+
+      <div class="tier featured">
+        <div class="tier-tag">Flagship</div>
+        <div class="tier-name">Tier 02 — Workshop</div>
+        <h3>The Plantworks Workshop</h3>
+        <div class="tier-price">$12,500</div>
+        <div class="tier-price-note">Full-day strategic engagement</div>
+        <p class="tier-desc">A complete diagnostic and roadmap engagement for organizations ready to move from exploration to execution.</p>
+        <ul class="tier-includes">
+          <li>Pre-workshop discovery &amp; readiness assessment</li>
+          <li>Full-day working session with leadership</li>
+          <li>Manufacturing AI Readiness Assessment</li>
+          <li>90-Day Operational AI Roadmap</li>
+          <li>Governance recommendations</li>
+          <li>Executive strategy deck</li>
+        </ul>
+        <a href="#cta" class="tier-cta">Most engagements start here →</a>
+      </div>
+
+      <div class="tier">
+        <div class="tier-name">Tier 03 — Retainer</div>
+        <h3>Plantworks Advisory</h3>
+        <div class="tier-price">From $5,000<span style="font-size:18px;color:var(--ink-muted);">/mo</span></div>
+        <div class="tier-price-note">Ongoing implementation support</div>
+        <p class="tier-desc">For organizations executing on their roadmap and seeking ongoing strategic guidance.</p>
+        <ul class="tier-includes">
+          <li>Monthly working sessions</li>
+          <li>Governance &amp; policy support</li>
+          <li>Vendor &amp; tool evaluation</li>
+          <li>Pilot oversight &amp; review</li>
+          <li>Direct advisory access</li>
+        </ul>
+        <a href="#cta" class="tier-cta">Continue the work →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section class="audience">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">07 / Who this is for</div>
+      <h2>Built for <em>operations-led organizations</em> ready to make AI an operational capability — not a science experiment.</h2>
+    </div>
+
+    <div class="audience-grid">
+      <div class="aud-block">
+        <h3>Industries</h3>
+        <ul class="aud-list">
+          <li>Discrete &amp; process manufacturers</li>
+          <li>Food &amp; beverage operations</li>
+          <li>CPG &amp; packaging</li>
+          <li>Life sciences manufacturing</li>
+          <li>Industrial system integrators</li>
+          <li>Automation vendors</li>
+        </ul>
+      </div>
+      <div class="aud-block">
+        <h3>Roles</h3>
+        <ul class="aud-list">
+          <li>CEOs &amp; COOs</li>
+          <li>VP Operations &amp; VP Engineering</li>
+          <li>Plant Managers</li>
+          <li>CIOs &amp; CTOs</li>
+          <li>Digital transformation leaders</li>
+          <li>Operational excellence teams</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="cta">
+  <div class="container">
+    <div class="eyebrow">Get in touch</div>
+    <h2>Tell me a bit about your situation. <em>I'll be in touch personally.</em></h2>
+    <p>This goes directly to me, not a sales team. I read every message and respond to fits within a few business days.</p>
+
+    <form
+      name="plantworks-inquiry"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      class="inquiry-form"
+      id="inquiry-form"
+    >
+      <!-- Netlify form name -->
+      <input type="hidden" name="form-name" value="plantworks-inquiry" />
+      <!-- Honeypot for spam -->
+      <p class="hidden-field">
+        <label>Don't fill this out: <input name="bot-field" /></label>
+      </p>
+
+      <div class="form-row two-col">
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="email">Work email</label>
+          <input type="email" id="email" name="email" required autocomplete="email" />
+        </div>
+      </div>
+
+      <div class="form-row two-col">
+        <div class="field">
+          <label for="company">Company</label>
+          <input type="text" id="company" name="company" required autocomplete="organization" />
+        </div>
+        <div class="field">
+          <label for="role">Your role</label>
+          <input type="text" id="role" name="role" required placeholder="e.g. VP Operations, COO" />
+        </div>
+      </div>
+
+      <div class="form-row two-col">
+        <div class="field">
+          <label for="company-size">Company size</label>
+          <select id="company-size" name="company-size" required>
+            <option value="">Select…</option>
+            <option value="under-100">Under 100 employees</option>
+            <option value="100-500">100–500 employees</option>
+            <option value="500-2000">500–2,000 employees</option>
+            <option value="2000-plus">2,000+ employees</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="interest">Primary interest</label>
+          <select id="interest" name="interest" required>
+            <option value="">Select…</option>
+            <option value="briefing">The Plantworks Briefing ($2.5K)</option>
+            <option value="workshop">The Plantworks Workshop ($12.5K)</option>
+            <option value="advisory">Plantworks Advisory (retainer)</option>
+            <option value="exploring">Just exploring — not sure yet</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="message">What are you trying to figure out?</label>
+        <textarea id="message" name="message" rows="4" placeholder="A few sentences about what's prompting the conversation. Where AI fits in, what your team is wrestling with, what a good outcome looks like."></textarea>
+      </div>
+
+      <button type="submit" class="btn-primary form-submit">
+        Send inquiry
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M1 6h14m0 0L10 1m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+      </button>
+    </form>
+
+    <!-- Thank you state, hidden by default -->
+    <div class="thank-you" id="thank-you" hidden>
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.2" fill="none"/>
+        <path d="M16 24l6 6 12-14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <h3>Message received.</h3>
+      <p>Thank you. I'll review your note and reach out personally if it looks like a fit. In the meantime, feel free to connect with me on <a href="https://www.linkedin.com/in/trevorcusworth" target="_blank" rel="noopener">LinkedIn</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COOKIE BANNER -->
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-labelledby="cookie-title">
+  <div class="cookie-eyebrow">Privacy</div>
+  <h4 id="cookie-title">A small ask</h4>
+  <p>We'd like to use privacy-respecting analytics to understand how visitors use this site. No personal data is sold or shared. <a href="/privacy.html">Learn more</a></p>
+  <div class="cookie-actions">
+    <button type="button" class="cookie-btn" id="cookie-decline">Decline</button>
+    <button type="button" class="cookie-btn primary" id="cookie-accept">Accept</button>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <div class="logo-lockup">
+        <svg class="logo-mark" width="26" height="26" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+          <rect x="2" y="2" width="40" height="40" stroke="currentColor" stroke-width="1.2" fill="none"/>
+          <text x="22" y="29.5" text-anchor="middle" font-family="Fraunces, serif" font-size="19" font-weight="500" fill="currentColor" letter-spacing="-0.5">PW</text>
+        </svg>
+        <span class="logo" style="font-size: 18px;">Plant<span>works</span></span>
+      </div>
+      <div class="footer-meta">
+        <p>© 2026 Plantworks · plantworks.ai</p>
+        <div class="footer-links">
+          <a href="/privacy.html">Privacy</a>
+          <a href="/terms.html">Terms</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.hero, .problem, .diff, .pillars, .framework, .engage, .audience, .final-cta')
+    .forEach(el => {
+      el.classList.add('reveal');
+      observer.observe(el);
+    });
+
+  // ─── form submission ───
+  const form = document.getElementById('inquiry-form');
+  const thankYou = document.getElementById('thank-you');
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitBtn = form.querySelector('.form-submit');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Sending…';
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formData).toString()
+        });
+
+        if (response.ok) {
+          form.hidden = true;
+          thankYou.hidden = false;
+          thankYou.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          throw new Error('Network error');
+        }
+      } catch (err) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+        alert('Something went wrong. Please try again or email trevor@plantworks.ai directly.');
+      }
+    });
+  }
+
+  // ─── cookie consent ───
+  const COOKIE_KEY = 'pw-consent';
+  const banner = document.getElementById('cookie-banner');
+  const acceptBtn = document.getElementById('cookie-accept');
+  const declineBtn = document.getElementById('cookie-decline');
+
+  function loadAnalytics() {
+    // PostHog snippet activates here once consented.
+    // Replace 'YOUR_POSTHOG_KEY' with your actual key when ready.
+    if (window.posthog) return; // already loaded
+    /*
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys getNextSurveyStep onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('YOUR_POSTHOG_KEY', { api_host: 'https://us.i.posthog.com', persistence: 'localStorage' });
+    */
+  }
+
+  function hideBanner() {
+    banner.classList.remove('visible');
+  }
+
+  function showBanner() {
+    // Slight delay so it doesn't fight the page reveal
+    setTimeout(() => banner.classList.add('visible'), 1200);
+  }
+
+  const stored = localStorage.getItem(COOKIE_KEY);
+  if (stored === 'accepted') {
+    loadAnalytics();
+  } else if (stored !== 'declined') {
+    showBanner();
+  }
+
+  acceptBtn.addEventListener('click', () => {
+    localStorage.setItem(COOKIE_KEY, 'accepted');
+    hideBanner();
+    loadAnalytics();
+  });
+
+  declineBtn.addEventListener('click', () => {
+    localStorage.setItem(COOKIE_KEY, 'declined');
+    hideBanner();
+  });
+</script>
+
+</body>
+</html>
