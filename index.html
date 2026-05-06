@@ -1336,6 +1336,19 @@
 </head>
 <body>
 
+<!-- Hidden static form for Netlify build-time detection.
+     The visible form below uses AJAX; this one ensures detection. -->
+<form name="plantworks-inquiry" netlify netlify-honeypot="bot-field" hidden>
+  <input type="text" name="name" />
+  <input type="email" name="email" />
+  <input type="text" name="company" />
+  <input type="text" name="role" />
+  <input type="text" name="company-size" />
+  <input type="text" name="interest" />
+  <textarea name="message"></textarea>
+  <input name="bot-field" />
+</form>
+
 <div class="container">
   <nav>
     <a href="/" class="logo-lockup">
