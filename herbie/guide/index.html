@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<title>A Practical Guide to Unlocking Plant Capacity | Plantworks</title>
+  <meta name="description" content="How to find the binding constraint in a plant and apply the Five Focusing Steps — identify, exploit, subordinate, elevate, return — before a capital request goes anywhere near the plan.">
+  <link rel="canonical" href="https://plantworks.ai/herbie/guide/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Plantworks">
+  <meta property="og:url" content="https://plantworks.ai/herbie/guide/">
+  <meta property="og:title" content="A Practical Guide to Unlocking Plant Capacity">
+  <meta property="og:description" content="How to find the binding constraint in a plant and apply the Five Focusing Steps before a capital request goes anywhere near the plan.">
+  <meta property="og:image" content="https://plantworks.ai/og-herbie.png">
+  <meta property="og:image:secure_url" content="https://plantworks.ai/og-herbie.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A Practical Guide to Unlocking Plant Capacity — Plantworks">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="A Practical Guide to Unlocking Plant Capacity">
+  <meta name="twitter:description" content="How to find the binding constraint in a plant and apply the Five Focusing Steps before a capital request goes anywhere near the plan.">
+  <meta name="twitter:image" content="https://plantworks.ai/og-herbie.png">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article",
+   "headline":"A Practical Guide to Unlocking Plant Capacity",
+   "author":{"@type":"Person","name":"Trevor Cusworth"},
+   "publisher":{"@type":"Organization","name":"Plantworks"},
+   "url":"https://plantworks.ai/herbie/guide/",
+   "image":"https://plantworks.ai/og-herbie.png"}
+  </script>
+<link rel="icon" type="image/svg+xml" href="/plantworks-favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,300;9..144,0,400;9..144,0,500;9..144,1,300;9..144,1,400&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0f11;
+    --bg-alt: #131519;
+    --bg-card: #181a1e;
+    --ink: #f0ece2;
+    --ink-soft: #b8b3a6;
+    --ink-muted: #6e6a60;
+    --rule: #26282d;
+    --rule-soft: #1d1f23;
+    --accent: #8aa4c0;
+    --accent-warm: #d4a574;
+    --paper: #f5f0e3;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter Tight', -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    z-index: 100;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: -200px;
+    right: -200px;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(138, 164, 192, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 0 24px; }
+  }
+
+  /* ─── nav ───────────────────────────────────────────────── */
+  nav {
+    padding: 32px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .logo-lockup {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: opacity 0.2s;
+  }
+
+  .logo-lockup:hover { opacity: 0.85; }
+
+  .logo-mark { color: var(--accent-warm); flex-shrink: 0; }
+
+  .logo {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .logo span { font-weight: 300; color: var(--ink-soft); }
+
+  .nav-links { display: flex; gap: 40px; align-items: center; }
+
+  .nav-links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
+  .nav-cta {
+    padding: 10px 20px;
+    border: 1px solid var(--ink-soft);
+    color: var(--ink) !important;
+    font-size: 13px !important;
+    transition: all 0.2s;
+  }
+
+  .nav-cta:hover { background: var(--ink); color: var(--bg) !important; border-color: var(--ink); }
+
+  @media (max-width: 720px) {
+    .nav-links a:not(.nav-cta) { display: none; }
+  }
+
+  /* ─── hero ──────────────────────────────────────────────── */
+  .hero { padding: 120px 0 80px; position: relative; background: var(--bg); color: var(--ink); }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 36px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--accent); }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(38px, 6vw, 72px);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    margin-bottom: 32px;
+    max-width: 900px;
+    color: var(--ink);
+  }
+
+  h1 em { font-style: italic; font-weight: 300; color: var(--accent-warm); }
+
+  .hero-sub {
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 640px;
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 60px 0 48px; }
+    .hero-sub { font-size: 17px; }
+  }
+
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(26px, 3.4vw, 38px);
+    line-height: 1.16;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+
+  h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 20px;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--paper);
+    color: var(--bg);
+    padding: 16px 30px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: all 0.25s;
+  }
+
+  .btn-primary:hover { background: var(--accent-warm); transform: translateY(-1px); }
+
+  .btn-text {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 15px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 2px;
+    transition: all 0.2s;
+  }
+
+  .btn-text:hover { color: var(--ink); border-bottom-color: var(--ink-soft); }
+
+  /* ─── guide body ────────────────────────────────────────── */
+  .guide-page section { margin-bottom: 64px; }
+  .guide-page section p { margin: 0 0 18px; line-height: 1.7; color: var(--ink-soft); font-size: 17px; max-width: 760px; }
+  .guide-page section p strong { color: var(--ink); font-weight: 500; }
+  .guide-page section p em { color: var(--accent-warm); font-style: italic; }
+  .guide-page .lede p { font-size: 19px; max-width: 720px; }
+
+  .step { border-top: 1px solid var(--rule); padding-top: 48px; }
+
+  .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-warm);
+    margin-bottom: 20px;
+  }
+
+  .step-list { list-style: none; margin: 28px 0 0; max-width: 760px; }
+  .step-list li {
+    position: relative;
+    padding: 0 0 18px 24px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    font-size: 16px;
+  }
+  .step-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 8px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .step-list li:last-child { padding-bottom: 0; }
+
+  .callout {
+    border: 1px solid var(--rule);
+    background: var(--bg-card);
+    border-radius: 4px;
+    padding: 32px 36px;
+    max-width: 760px;
+    margin-top: 8px;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  .guide-cta {
+    border: 1px solid var(--rule);
+    background: var(--bg-alt);
+    border-radius: 4px;
+    padding: 40px;
+    text-align: left;
+  }
+  .guide-cta h3 { font-size: 24px; margin-bottom: 14px; }
+  .guide-cta p { max-width: 560px; margin-bottom: 24px !important; }
+  .guide-cta .actions { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+
+  .colophon { font-size: 13px; color: var(--ink-muted); border-top: 1px solid var(--rule-soft); padding-top: 20px; margin-top: -24px; }
+
+  /* ─── footer ────────────────────────────────────────────── */
+  footer { border-top: 1px solid var(--rule); padding: 48px 0; background: var(--bg); }
+  .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+  .footer-content .logo { font-size: 18px; }
+  .footer-meta { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .footer-meta p { font-size: 13px; color: var(--ink-muted); }
+  .footer-links { display: flex; gap: 18px; }
+  .footer-links a { font-size: 13px; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--ink-soft); }
+
+  @media (max-width: 600px) {
+    .guide-cta { padding: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container guide-page">
+  <nav>
+    <a href="/" class="logo-lockup">
+      <svg class="logo-mark" width="32" height="32" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+        <rect x="2" y="2" width="40" height="40" stroke="currentColor" stroke-width="1.2" fill="none"/>
+        <text x="22" y="29.5" text-anchor="middle" font-family="Fraunces, serif" font-size="19" font-weight="500" fill="currentColor" letter-spacing="-0.5">PW</text>
+      </svg>
+      <span class="logo">Plant<span>works</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="/herbie/">Where&rsquo;s Your Herbie?</a>
+      <a href="/#cta" class="nav-cta">Get in touch</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="eyebrow">A Practical Guide</div>
+    <h1>Unlocking plant <em>capacity</em> before you spend.</h1>
+    <p class="hero-sub">How to find the binding constraint and apply the Five Focusing Steps &mdash; identify, exploit, subordinate, elevate, return &mdash; before a capital request goes anywhere near the plan.</p>
+  </section>
+
+  <section class="lede">
+    <p>Most plants already have the capacity a growth request is asking for. It is sitting inside the operation, unmeasured, because the dashboard was built to show utilization rather than throughput. This guide walks through how to find that capacity, and how to apply the Five Focusing Steps before a capital request goes anywhere near the plan.</p>
+  </section>
+
+  <section>
+    <h2>Why this matters before you spend a dollar</h2>
+    <p>A plant asked to produce more usually reaches for the same two levers: run more hours, or buy more equipment. Both work. Both are also the expensive way to get there if the real limit was never capacity in the first place, but the way that capacity was being used.</p>
+    <p>Every plant has a binding constraint &mdash; one resource, one station, one operation that sets the ceiling on how much the whole line can produce. Improving anything else feels productive and changes nothing that ships. That is the trap. A capital request built on downtime data or general improvement activity is a weaker case than one built on constraint evidence, because it cannot say with any precision what the money buys.</p>
+    <p>The Five Focusing Steps exist to put that precision in place before capital is on the table.</p>
+  </section>
+
+  <section class="step">
+    <div class="step-num">Step 01 &middot; Identify</div>
+    <h2>Find the actual constraint, not the loudest one</h2>
+    <p>The constraint is rarely the station operators complain about most. Complaints track visible pain &mdash; jams, alarms, rework &mdash; and the constraint is often quiet, simply running at its ceiling while everything around it has slack.</p>
+    <p>A practical way to find it:</p>
+    <ul class="step-list">
+      <li>Follow one product family across a full shift, in person, and mark where work-in-process piles up ahead of a station. Queueing in front of an operation is usually a stronger signal than the operation&rsquo;s own downtime log.</li>
+      <li>Mark where equipment sits idle waiting for material or for the next operation to clear. Idle time downstream of a station tells you that station is not the limit.</li>
+      <li>Ask which operation cannot make up lost output before the shift ends. A station that falls behind for twenty minutes and recovers by lunch is not your constraint. A station that falls behind and stays behind usually is.</li>
+      <li>Check the answer against speed curves per SKU rather than a single rated speed. A line can be constrained by one product and unconstrained by another, and averaging across products hides that.</li>
+    </ul>
+    <p style="margin-top:24px">This is dynamic bottleneck identification in practice &mdash; the constraint moves with product mix, staffing, and condition, so treat identification as something you repeat, not something you conclude once and file away.</p>
+  </section>
+
+  <section class="step">
+    <div class="step-num">Step 02 &middot; Exploit</div>
+    <h2>Get everything out of the constraint before you touch a budget</h2>
+    <p>Once the constraint is identified, the next move is not a purchase order. It is squeezing every unit of output the constraint can already give you, using variance tree analysis to separate the three loss categories in the right order: downtime, slow running, waste.</p>
+    <p>In practice this usually means:</p>
+    <ul class="step-list">
+      <li>Moving planned maintenance on the constraint to a window that does not cost production time, rather than accepting whatever slot the maintenance calendar defaults to.</li>
+      <li>Tightening the changeover on the constraint specifically, even if changeovers elsewhere are left alone. A changeover on a non-constraint station costs schedule flexibility. The same changeover on the constraint costs cases.</li>
+      <li>Staffing breaks so the constraint never stops for lack of an operator, even if that means pulling coverage from a station with spare capacity.</li>
+      <li>Running quality checks and material staging so the constraint is never waiting on either. A constraint idled by an upstream shortage loses output as completely as a constraint that is down for repair.</li>
+    </ul>
+    <p style="margin-top:24px">Exploitation is nearly always free or close to it. It is also the step most plants skip, because it does not produce a line item that looks like progress on a capital plan.</p>
+  </section>
+
+  <section class="step">
+    <div class="step-num">Step 03 &middot; Subordinate</div>
+    <h2>Make the rest of the line serve the constraint</h2>
+    <p>Subordination is the step with the worst reputation, because it asks other stations to run at less than their own local efficiency on purpose. A station upstream of the constraint that could run faster is told to slow down, or to build a small buffer and then stop, rather than push work toward a station that cannot absorb it.</p>
+    <p>This is where utilization as a metric actively works against the plant. Utilization measures whether an asset is moving, not whether it is moving the right thing at the right time. A non-constraint station running flat out looks good on a scorecard and produces work-in-process that sits in front of the constraint, doing nothing for cases shipped.</p>
+    <p>Subordination usually means:</p>
+    <ul class="step-list">
+      <li>Setting the pace of upstream stations to the constraint&rsquo;s demonstrated rate, not their own rated speed.</li>
+      <li>Protecting the constraint with a small, deliberate buffer of work-in-process immediately ahead of it, so a minor upstream hiccup never reaches the constraint as starvation.</li>
+      <li>Accepting idle time on non-constraint equipment as a planned outcome, not a problem to be solved separately.</li>
+    </ul>
+    <p style="margin-top:24px">Plant managers whose reviews reward station-by-station efficiency will find this step is the one that gets political first. It is worth having that conversation before the capital request, not after.</p>
+  </section>
+
+  <section class="step">
+    <div class="step-num">Step 04 &middot; Elevate</div>
+    <h2>The point where capital finally belongs</h2>
+    <p>Elevation is buying, building, or adding capacity at the constraint. It comes fourth for a reason: exploitation and subordination typically recover meaningful output with no capital at all, and whatever gap remains after those two steps is the real size of the capital ask.</p>
+    <p>A capital request built this way carries a different kind of evidence than the usual downtime report:</p>
+    <ul class="step-list">
+      <li>It names the specific binding constraint, not the plant in general.</li>
+      <li>It states what exploitation and subordination already recovered, with the loss categories broken out &mdash; downtime, slow running, waste &mdash; so the reviewer can see what has already been captured.</li>
+      <li>It states the remaining gap between demonstrated output and the growth target, and ties the capital ask directly to closing that gap.</li>
+    </ul>
+    <p style="margin-top:24px">This is usually a stronger case than a general capacity investment, because it answers the question a capital committee actually asks, which is what, specifically, the money changes.</p>
+  </section>
+
+  <section class="step">
+    <div class="step-num">Step 05 &middot; Return</div>
+    <h2>The constraint does not stay put</h2>
+    <p>Elevating a constraint tends to move it. The station that used to set the ceiling now has headroom, and some other operation &mdash; often one that looked comfortable a month earlier &mdash; becomes the new limit. Returning to Step 1 is not a failure of the first four steps. It is what a production-constrained plant does whenever the constraint changes, and a demand-constrained plant does whenever mix or volume shifts the load.</p>
+    <p>Treating the Five Focusing Steps as a cycle, rather than a project with an end date, is what keeps a plant from rediscovering the same trap eighteen months later with a different station in the starring role.</p>
+  </section>
+
+  <section>
+    <h2>Before the capital request goes in</h2>
+    <div class="callout">
+      <p>Two questions are worth asking of any growth request before it reaches a capital plan.</p>
+      <p>Has the constraint actually been identified, or is this request based on a general sense that the plant is busy? Have exploitation and subordination been applied and measured, or is this request skipping straight from identification to elevation because that is the step with a purchase order attached?</p>
+      <p>If the honest answer to either is no, there is very likely more capacity already inside the plant than the request assumes &mdash; unmeasured, already paid for, and cheaper than anything on the capital plan.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="guide-cta">
+      <h3>This guide draws on Where&rsquo;s Your Herbie?</h3>
+      <p>A Theory of Constraints book for discrete manufacturing &mdash; food and beverage, CPG, and related operations. It goes further into how to walk a plant, find the constraint yourself, and hold the gains once they arrive.</p>
+      <div class="actions">
+        <a class="btn-primary" href="/herbie/">Read about the book</a>
+        <a class="btn-text" href="https://www.amazon.com/dp/B0HFRPFXF3" rel="noopener">Buy on Amazon</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <div class="logo-lockup">
+        <svg class="logo-mark" width="26" height="26" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+          <rect x="2" y="2" width="40" height="40" stroke="currentColor" stroke-width="1.2" fill="none"/>
+          <text x="22" y="29.5" text-anchor="middle" font-family="Fraunces, serif" font-size="19" font-weight="500" fill="currentColor" letter-spacing="-0.5">PW</text>
+        </svg>
+        <span class="logo" style="font-size: 18px;">Plant<span>works</span></span>
+      </div>
+      <div class="footer-meta">
+        <p>&copy; 2026 Plantworks &middot; plantworks.ai</p>
+        <div class="footer-links">
+          <a href="/privacy.html">Privacy</a>
+          <a href="/terms.html">Terms</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
