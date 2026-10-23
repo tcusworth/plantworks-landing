@@ -76,15 +76,16 @@
   </section>
   <aside class="card">
     <h2>Get the white paper</h2>
-    <p class="sub">Enter your details and the download opens straight away.</p>
+    <p class="sub">Enter your details and I will email you the PDF.</p>
     <form name="white-paper-download" method="POST" action="/white-paper/thank-you/" data-netlify="true" netlify-honeypot="bot-field">
       <input type="hidden" name="form-name" value="white-paper-download">
+      <input type="hidden" name="source" value="white-paper">
       <p class="hp"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
       <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" required autocomplete="name"></div>
       <div class="field"><label for="email">Work email</label><input id="email" name="email" type="email" required autocomplete="email"></div>
       <div class="field"><label for="company">Company</label><input id="company" name="company" type="text" required autocomplete="organization"></div>
       <div class="field"><label for="role">Role</label><input id="role" name="role" type="text" autocomplete="organization-title"></div>
-      <button class="btn" type="submit">Download the PDF</button>
+      <button class="btn" type="submit">Email me the white paper</button>
       <p class="fine">I'll use your details to send you relevant Plantworks updates and to follow up about the white paper. See the <a href="/privacy.html">privacy policy</a>.</p>
     </form>
   </aside>
